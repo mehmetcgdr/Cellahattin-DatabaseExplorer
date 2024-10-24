@@ -1,0 +1,222 @@
+﻿<Window x:Class="Cellahattin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cellahattin"
+        mc:Ignorable="d"
+        Icon="icon.ico"
+        Title="Cell Mario">
+    <TabControl>
+        <TabItem Header="Database Management">
+            <ScrollViewer>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Connection String" 
+                             FontWeight="Bold"
+                             Margin="0,10,0,5"/>
+                    <TextBox x:Name="txtConnectionString" 
+                            HorizontalAlignment="Stretch"
+                            Height="60"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            VerticalScrollBarVisibility="Auto"
+                            Margin="0,0,0,5"
+                            FontFamily="Consolas"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <Button x:Name="btnConnect" 
+                                Content="Connect" 
+                                Width="100" 
+                                HorizontalAlignment="Left"
+                                Margin="0,0,10,0"
+                                Click="BtnConnect_Click"/>
+                        <Button x:Name="btnDisconnect" 
+                                Content="Disconnect" 
+                                Width="100" 
+                                HorizontalAlignment="Left"
+                                Click="BtnDisconnect_Click"/>
+                    </StackPanel>
+
+                    <GroupBox Header="Database Operations" Margin="0,0,0,15">
+                        <StackPanel Margin="5">
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="Current Database: " VerticalAlignment="Center"/>
+                                <TextBox x:Name="txtCurrentDatabase" IsReadOnly="True" Margin="5,0"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="New Database Name: " VerticalAlignment="Center"/>
+                                <TextBox x:Name="txtNewDatabaseName" Margin="5,0"/>
+                            </DockPanel>
+
+                            <Button x:Name="btnRenameDatabase" 
+                                    Content="Rename Database" 
+                                    Width="150" 
+                                    HorizontalAlignment="Left"
+                                    Margin="0,5"
+                                    Click="BtnRenameDatabase_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Table Operations" Margin="0,0,0,15">
+                        <StackPanel Margin="5">
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="Select Table: " VerticalAlignment="Center"/>
+                                <ComboBox x:Name="cmbTableSelect" 
+                                         Margin="5,0"
+                                         SelectionChanged="CmbTableSelect_SelectionChanged"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="New Table Name: " VerticalAlignment="Center"/>
+                                <TextBox x:Name="txtNewTableName" Margin="5,0"/>
+                            </DockPanel>
+
+                            <Button x:Name="btnRenameTable" 
+                                    Content="Rename Table" 
+                                    Width="150" 
+                                    HorizontalAlignment="Left"
+                                    Margin="0,5"
+                                    Click="BtnRenameTable_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <GroupBox Header="Column Operations" Margin="0,0,0,15">
+                        <StackPanel Margin="5">
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="Select Column: " VerticalAlignment="Center"/>
+                                <ComboBox x:Name="cmbColumnSelect" 
+                                         Margin="5,0"
+                                         SelectionChanged="CmbColumnSelect_SelectionChanged"/>
+                            </DockPanel>
+
+                            <DockPanel Margin="0,5">
+                                <TextBlock Text="New Column Name: " VerticalAlignment="Center"/>
+                                <TextBox x:Name="txtNewColumnName" Margin="5,0"/>
+                            </DockPanel>
+
+                            <Button x:Name="btnRenameColumn" 
+                                    Content="Rename Column" 
+                                    Width="150" 
+                                    HorizontalAlignment="Left"
+                                    Margin="0,5"
+                                    Click="BtnRenameColumn_Click"/>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <TextBlock x:Name="txtManagementStatus" 
+                              Margin="0,10,0,5"
+                              Foreground="Gray"/>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+
+        <TabItem Header="Data Operations">
+            <ScrollViewer>
+                <StackPanel Margin="10">
+                    <TextBlock x:Name="txtStatus" 
+                              Margin="0,10,0,5"
+                              Foreground="Gray"/>
+
+                    <DockPanel Margin="0,0,0,15">
+                        <StackPanel DockPanel.Dock="Left" Margin="0,0,20,0">
+                            <TextBlock Text="Tables" 
+                                     FontWeight="Bold"
+                                     Margin="0,10,0,5"/>
+                            <ComboBox x:Name="cmbTables" 
+                                     Width="250" 
+                                     HorizontalAlignment="Left"
+                                     SelectionChanged="CmbTables_SelectionChanged"/>
+                        </StackPanel>
+
+                        <StackPanel DockPanel.Dock="Left" Margin="0,0,20,0">
+                            <TextBlock Text="Columns" 
+                                     FontWeight="Bold"
+                                     Margin="0,10,0,5"/>
+                            <ComboBox x:Name="cmbColumns" 
+                                     Width="250" 
+                                     HorizontalAlignment="Left"
+                                     SelectionChanged="CmbColumns_SelectionChanged"/>
+                        </StackPanel>
+
+                        <StackPanel DockPanel.Dock="Left">
+                            <TextBlock Text="Values" 
+                                     FontWeight="Bold"
+                                     Margin="0,10,0,5"/>
+                            <ComboBox x:Name="cmbValues" 
+                                     Width="250" 
+                                     HorizontalAlignment="Left"
+                                     SelectionChanged="CmbValues_SelectionChanged"/>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <TextBlock Text="Results" 
+                              FontWeight="Bold"
+                              Margin="0,10,0,5"/>
+                    <DataGrid x:Name="dgResults" 
+                              Height="150" 
+                              AutoGenerateColumns="True"
+                              SelectionMode="Single"
+                              SelectionUnit="Cell"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              HeadersVisibility="All"
+                              GridLinesVisibility="All"
+                              LoadingRow="DgResults_LoadingRow"
+                              SelectedCellsChanged="DgResults_SelectedCellsChanged" RenderTransformOrigin="0.5,0.515"
+                              />
+
+                    <DockPanel Margin="0,0,0,15">
+                        <StackPanel DockPanel.Dock="Left" Orientation="Vertical">
+                            <TextBlock x:Name="txtSelectedValue"
+                                     FontWeight="Bold"
+                                     Margin="0,0,10,5"
+                                     Text="Selected Value --> "/>
+                            <TextBlock x:Name="txtSelectedColumn"
+                                     FontWeight="Bold"
+                                     Margin="0,0,10,0"
+                                     Text="Selected Column --> "/>
+                        </StackPanel>
+                        <TextBlock x:Name="txtSelectedCell" 
+                                  Width="500"
+                                  DockPanel.Dock="Left"
+                                  FontWeight="Bold"
+                                  Text="Selected Cell Value --> "/>
+                    </DockPanel>
+
+                    <DockPanel Margin="0,10,0,5">
+                        <TextBlock Text="New Value:" 
+                                  FontWeight="Bold"
+                                  DockPanel.Dock="Left"/>
+                        <CheckBox x:Name="chkIsEncrypted"
+                                 Content="Is Encrypted"
+                                 DockPanel.Dock="Right"
+                                 Margin="10,0,0,0"
+                                 Click="ChkIsEncrypted_Click"/>
+                    </DockPanel>
+
+                    <TextBox x:Name="txtEditValue" 
+                             Height="200"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             HorizontalAlignment="Stretch"
+                             Margin="0,0,0,5"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,0,0,15">
+                        <Button x:Name="btnUpdate" 
+                                Content="Update" 
+                                Width="100" 
+                                Click="BtnUpdate_Click"
+                                Margin="0,0,10,0"/>
+                        <Button x:Name="btnUndoUpdate" 
+                                Content="Undo Update" 
+                                Click="BtnUndoUpdate_Click"
+                                Width="100"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </TabItem>
+    </TabControl>
+</Window>
